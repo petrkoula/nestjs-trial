@@ -4,8 +4,10 @@ import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm'
 import { AuthController } from './modules/auth/auth.controller'
 import { AuthModule } from './modules/auth/auth.module'
 import { UserModule } from './modules/user/user.module'
+import { EventModule } from './modules/event/event.module'
+import { EventController } from './modules/event/event.controller'
 
-const databaseFactory = (configService: ConfigService) => {
+export const databaseFactory = (configService: ConfigService) => {
   return {
     type: 'postgres',
     host: configService.get('DB_HOST'),
@@ -23,13 +25,14 @@ const databaseFactory = (configService: ConfigService) => {
     ConfigModule.forRoot(),
     AuthModule,
     UserModule,
+    EventModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: databaseFactory,
-    })
+    }),
   ],
-  controllers: [AuthController],
+  controllers: [AuthController, EventController],
   providers: [],
 })
 export class AppModule {

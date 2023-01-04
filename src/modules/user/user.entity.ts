@@ -2,8 +2,10 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
+  CreateDateColumn, OneToMany,
 } from 'typeorm'
+
+import { Event } from '../event/event.entity'
 
 @Entity()
 export class User {
@@ -18,6 +20,9 @@ export class User {
 
   @Column()
   password_hash: string
+
+  @OneToMany(() => Event, (event) => event.user)
+  events: Event[]
 
   @CreateDateColumn({
     name: 'createDateTime',
