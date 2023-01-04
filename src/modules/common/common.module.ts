@@ -1,4 +1,5 @@
 import { Global, Module } from '@nestjs/common'
+import { HashService } from './security/hash.service'
 import { ConfigService } from './config/config.service'
 
 const configService = {
@@ -8,7 +9,11 @@ const configService = {
 
 @Global()
 @Module({
-  exports: [ConfigService],
-  providers: [configService],
+  exports: [ConfigService, HashService],
+  providers: [
+    HashService,
+    configService,
+  ],
 })
-export class CommonModule {}
+export class CommonModule {
+}

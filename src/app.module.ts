@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm'
+import { AuthController } from './modules/auth/auth.controller'
+import { AuthModule } from './modules/auth/auth.module'
+import { UserModule } from './modules/user/user.module'
 
 const databaseFactory = (configService: ConfigService) => {
   return {
@@ -18,13 +21,16 @@ const databaseFactory = (configService: ConfigService) => {
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    AuthModule,
+    UserModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: databaseFactory,
-    }),
+    })
   ],
-  controllers: [],
+  controllers: [AuthController],
   providers: [],
 })
-export class AppModule {}
+export class AppModule {
+}
