@@ -5,17 +5,21 @@ import { LoginPayload } from './login.payload'
 import { AuthService } from './auth.service'
 import { Response } from 'express'
 import { User } from '../user/user.entity'
+import { ApiOperation } from '@nestjs/swagger'
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly userService: UserService,
     private readonly authService: AuthService,
-  ) {
-  }
+  ) {}
 
+  @ApiOperation({ summary: 'Register new user' })
   @Post('register')
-  async register(@Body() payload: RegisterPayload, @Res({ passthrough: true }) res: Response): Promise<User> {
+  async register(
+    @Body() payload: RegisterPayload,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<User> {
     const user = await this.userService.create(payload)
     if (!user) {
       res.status(HttpStatus.CONFLICT)
@@ -25,6 +29,7 @@ export class AuthController {
     }
   }
 
+  @ApiOperation({ summary: 'Login user' })
   @Post('login')
   async login(
     @Body() payload: LoginPayload,
