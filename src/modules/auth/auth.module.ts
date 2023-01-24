@@ -6,6 +6,8 @@ import { AuthService } from './auth.service'
 import { ConfigService } from '../common/config/config.service'
 import { JwtModule } from '@nestjs/jwt'
 import { JwtModuleAsyncOptions } from '@nestjs/jwt/dist/interfaces/jwt-module-options.interface'
+import { JwtStrategy } from './passport/jwt.strategy'
+import { PassportModule } from '@nestjs/passport'
 
 const jwtModuleOptions: JwtModuleAsyncOptions = {
   imports: [CommonModule],
@@ -22,15 +24,21 @@ const jwtModuleOptions: JwtModuleAsyncOptions = {
   inject: [ConfigService],
 }
 
+const defaultPassportStrategy = () => PassportModule.register({ defaultStrategy: 'jwt' })
+
 @Module({
   imports: [
     CommonModule,
     UserModule,
+    defaultPassportStrategy(),
     JwtModule.registerAsync(jwtModuleOptions),
   ],
   controllers: [AuthController],
-  providers: [AuthService],
-  exports: [AuthService],
+  providers: [AuthService, JwtStrategy],
+  exports: [
+    defaultPassportStrategy(),
+    AuthService,
+  ],
 })
 export class AuthModule {
 }

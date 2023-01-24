@@ -6,6 +6,8 @@ import { AuthModule } from './modules/auth/auth.module'
 import { UserModule } from './modules/user/user.module'
 import { EventModule } from './modules/event/event.module'
 import { EventController } from './modules/event/event.controller'
+import { AppController } from './app.controller'
+import { AppService } from './app.service'
 
 export const databaseFactory = (configService: ConfigService) => {
   return {
@@ -23,6 +25,7 @@ export const databaseFactory = (configService: ConfigService) => {
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    AppModule,
     AuthModule,
     UserModule,
     EventModule,
@@ -32,8 +35,8 @@ export const databaseFactory = (configService: ConfigService) => {
       useFactory: databaseFactory,
     }),
   ],
-  controllers: [AuthController, EventController],
-  providers: [],
+  controllers: [AppController, AuthController, EventController],
+  providers: [AppService],
 })
 export class AppModule {
 }
