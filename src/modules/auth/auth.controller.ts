@@ -5,16 +5,20 @@ import { LoginPayload } from './login.payload'
 import { AuthService } from './auth.service'
 import { Response } from 'express'
 import { User } from '../user/user.entity'
-import { ApiOperation } from '@nestjs/swagger'
+import { ApiOperation, ApiResponse } from '@nestjs/swagger'
+import { JwtToken } from './types'
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly userService: UserService,
     private readonly authService: AuthService,
-  ) {}
+  ) {
+  }
 
   @ApiOperation({ summary: 'Register new user' })
+  @ApiResponse({ status: 201, description: 'Successful Registration' })
+  @ApiResponse({ status: 409, description: 'User email already registered' })
   @Post('register')
   async register(
     @Body() payload: RegisterPayload,
@@ -30,19 +34,23 @@ export class AuthController {
   }
 
   @ApiOperation({ summary: 'Login user' })
+  @ApiResponse({ status: 201, description: 'Successful Registration' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   @Post('login')
   async login(
     @Body() payload: LoginPayload,
     @Res({ passthrough: true }) res,
-  ): Promise<void> {
-    const isAuthenticated = await this.authService.isAuthenticated(
+  ): Promise<JwtToken | {}> {
+    const token = await this.authService.authenticate(
       payload.email,
       payload.password,
     )
-    if (!isAuthenticated) {
+
+    if (!token) {
       res.status(HttpStatus.UNAUTHORIZED)
+      return {}
     }
 
-    return
+    return token
   }
 }
