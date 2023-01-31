@@ -24,6 +24,7 @@
     "mig:create": "typeorm migration:create src/migrations"
   },
   "dependencies": {
+    "@medibloc/nestjs-request-context": "^1.0.1",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",

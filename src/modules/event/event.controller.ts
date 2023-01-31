@@ -8,8 +8,9 @@ export class AddEventPayload {
   @ApiProperty({ required: true })
   @IsNotEmpty()
   from: Date
-  @IsNotEmpty()
+
   @ApiProperty({ required: true })
+  @IsNotEmpty()
   till: Date
 
   @ApiProperty({ required: true })
@@ -42,32 +43,31 @@ export class EventDto {
 @Controller('events')
 @ApiTags('events')
 export class EventController {
-
-  userId = 2
-
-  constructor(private readonly eventService: EventService) {
+  constructor(
+    private readonly eventService: EventService,
+  ) {
   }
 
   @Get()
   async list(): Promise<EventDto[]> {
-    const events = await this.eventService.list(this.userId)
+    const events = await this.eventService.list()
     return events.map(mapEventToDto)
   }
 
   @Post()
   async create(@Body() payload: AddEventPayload): Promise<EventDto> {
-    const event = await this.eventService.create(this.userId, payload)
+    const event = await this.eventService.create(payload)
     return mapEventToDto(event)
   }
 
   @Put('/{id}')
   async update(@Query('id') id: number, @Body() payload: AddEventPayload): Promise<EventDto> {
-    const event = await this.eventService.update(this.userId, id, payload)
+    const event = await this.eventService.update(id, payload)
     return mapEventToDto(event)
   }
 
   @Delete('/{id}')
   async delete(@Query('id') id: number): Promise<void> {
-    await this.eventService.delete(this.userId, id)
+    await this.eventService.delete(id)
   }
 }

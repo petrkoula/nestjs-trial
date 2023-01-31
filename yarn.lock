@@ -704,6 +704,11 @@
     semver "^7.3.5"
     tar "^6.1.11"
 
+"@medibloc/nestjs-request-context@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@medibloc/nestjs-request-context/-/nestjs-request-context-1.0.1.tgz#8fe97b22a2c00a2e0fdd1a11a6ffd9ce3f7e5a6c"
+  integrity sha512-4z8FCSDlvbJOS/UcbSXdIB3q3+Vg3jAQYbucSR3uh8aKKG7oVmHCBnDrPS5WYAFy6G8f4bGP8TbQqiJD8bJpNQ==
+
 "@nestjs/cli@^9.0.0":
   version "9.1.5"
   resolved "https://registry.yarnpkg.com/@nestjs/cli/-/cli-9.1.5.tgz#aa150991b209dc2b459c974cc1c43ea10a276ff8"

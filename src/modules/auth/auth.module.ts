@@ -8,6 +8,9 @@ import { JwtModule } from '@nestjs/jwt'
 import { JwtModuleAsyncOptions } from '@nestjs/jwt/dist/interfaces/jwt-module-options.interface'
 import { JwtStrategy } from './passport/jwt.strategy'
 import { PassportModule } from '@nestjs/passport'
+import { RequestContextModule } from '@medibloc/nestjs-request-context'
+import { UserContext } from './user-context/user-context'
+import { UserContextService } from './user-context/user-context.service'
 
 const jwtModuleOptions: JwtModuleAsyncOptions = {
   imports: [CommonModule],
@@ -26,18 +29,25 @@ const jwtModuleOptions: JwtModuleAsyncOptions = {
 
 const defaultPassportStrategy = () => PassportModule.register({ defaultStrategy: 'jwt' })
 
+const requestContextModule = () => RequestContextModule.forRoot({
+  contextClass: UserContext,
+  isGlobal: true,
+})
+
 @Module({
   imports: [
     CommonModule,
     UserModule,
     defaultPassportStrategy(),
     JwtModule.registerAsync(jwtModuleOptions),
+    requestContextModule(),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, UserContextService],
   exports: [
     defaultPassportStrategy(),
     AuthService,
+    UserContextService,
   ],
 })
 export class AuthModule {
