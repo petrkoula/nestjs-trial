@@ -4,7 +4,7 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn, ManyToOne, Index, JoinColumn,
 } from 'typeorm'
-import { User } from '../user/user.entity'
+import { User } from '../../../../apps/api/src/modules/user/user.entity'
 
 @Entity()
 export class Event {

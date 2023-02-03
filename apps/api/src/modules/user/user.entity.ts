@@ -5,7 +5,7 @@ import {
   CreateDateColumn, OneToMany,
 } from 'typeorm'
 
-import { Event } from '../event/event.entity'
+import { Event } from '@app/shared/entities/event.entity'
 
 @Entity()
 export class User {

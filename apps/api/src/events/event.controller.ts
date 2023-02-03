@@ -1,45 +1,11 @@
 import { Body, Controller, Delete, Get, Post, Put, Query, UseGuards } from '@nestjs/common'
-import { IsNotEmpty } from 'class-validator'
 import { mapEventToDto } from './mappers'
 import { EventService } from './event.service'
-import { ApiBearerAuth, ApiProperty, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AuthGuard } from '@nestjs/passport'
-
-export class AddEventPayload {
-  @ApiProperty({ required: true })
-  @IsNotEmpty()
-  from: Date
-
-  @ApiProperty({ required: true })
-  @IsNotEmpty()
-  till: Date
-
-  @ApiProperty({ required: true })
-  @IsNotEmpty()
-  title: string
-  description?: string
-}
-
-export class EventDto {
-  @ApiProperty({ required: true })
-  @IsNotEmpty()
-  id: Date
-
-  @ApiProperty({ required: true })
-  @IsNotEmpty()
-  from: Date
-
-  @ApiProperty({ required: true })
-  @IsNotEmpty()
-  till: Date
-
-  @ApiProperty({ required: true })
-  @IsNotEmpty()
-  title: string
-
-  @ApiProperty({ required: true })
-  description: string
-}
+import { AddEventPayload } from './addEvent.payload'
+import { EventDto } from './event.dto'
+import { toArray } from 'rxjs'
 
 @Controller('events')
 @ApiTags('events')
@@ -49,8 +15,10 @@ export class EventController {
 
   @Get()
   async list(): Promise<EventDto[]> {
-    const events = await this.eventService.list()
-    return events.map(mapEventToDto)
+    const events = this.eventService.list()
+    let e = await events.pipe()
+    return e
+      .map(mapEventToDto)
   }
 
   @Post()

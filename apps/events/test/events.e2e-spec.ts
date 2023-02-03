@@ -1,10 +1,10 @@
 import { Test } from '@nestjs/testing'
 import { INestApplication } from '@nestjs/common'
 import * as request from 'supertest'
-import { AppModule } from '../src/app.module'
-import { IntegrationTestService } from './modules/event/integration-test.service'
-import { datasource } from '../ormconfig'
-import { AddEventPayload } from '../src/modules/event/event.controller'
+import { AppModule } from '../../api/src/app.module'
+import { IntegrationTestService } from '../../api/test/modules/event/integration-test.service'
+import { datasource } from '../../../ormconfig'
+import { AddEventPayload } from '../../api/src/events/addEvent.payload'
 
 describe('events e2e tests', () => {
   let app: INestApplication
