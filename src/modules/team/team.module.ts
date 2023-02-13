@@ -5,6 +5,7 @@ import { Team } from './team.entity'
 import { Repository } from 'typeorm'
 import { CommonModule } from '../common/common.module'
 import { AuthModule } from '../auth/auth.module'
+import { TeamController } from './team.controller'
 
 @Module({
   imports: [
@@ -12,8 +13,9 @@ import { AuthModule } from '../auth/auth.module'
     TypeOrmModule.forFeature([Team]),
     AuthModule,
   ],
-  exports: [TeamService, Repository<Team>],
+  controllers: [TeamController],
   providers: [TeamService, Repository<Team>],
+  exports: [TeamService, Repository<Team>],
 })
 export class TeamModule {
 }

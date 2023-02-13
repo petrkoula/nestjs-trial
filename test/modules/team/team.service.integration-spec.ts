@@ -44,7 +44,7 @@ describe(TeamService, () => {
     const team = await teamService.findOneByName('New Team')
 
     expect(team.name).toEqual('New Team')
-    expect(team.vote_count).toEqual(1)
+    expect(team.voteCount).toEqual(1)
   })
 
   it('increments votes for existing team', async () => {
@@ -54,6 +54,6 @@ describe(TeamService, () => {
     await teamService.createOrIncrementByName('Existing Guys')
 
     const team = await teamService.findOneByName('Existing Guys')
-    expect(team.vote_count).toEqual(2)
+    expect(team.voteCount).toEqual(2)
   })
 })
