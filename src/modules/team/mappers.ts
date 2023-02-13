@@ -1,7 +1,9 @@
-export const mapEventToDto = (e) => ({
+import { Team } from './team.entity'
+import { TeamDto } from './team.controller'
+
+export const mapTeamToDto = (e: Team) : TeamDto => ({
   id: e.id,
-  from: e.from,
-  till: e.till,
-  title: e.title,
-  description: e.description,
+  name: e.name,
+  votesCount: e.vote_count,
+  createdAt: e.created_at,
 })

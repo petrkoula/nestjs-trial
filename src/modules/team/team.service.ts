@@ -3,6 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { Team } from './team.entity'
 import { UserContextService } from '../auth/user-context/user-context.service'
+import { TeamDto } from './team.controller'
+import { mapTeamToDto } from './mappers'
 
 @Injectable()
 export class TeamService {
@@ -24,7 +26,8 @@ export class TeamService {
     }
   }
 
-  async findOneByName(teamName: string): Promise<Team | undefined> {
-    return await this.teamRepository.findOneBy({ name: teamName })
+  async findOneByName(teamName: string): Promise<TeamDto | undefined> {
+    let team = await this.teamRepository.findOneBy({ name: teamName })
+    return !team ? undefined : mapTeamToDto(team)
   }
 }
