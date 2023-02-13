@@ -4,6 +4,8 @@ import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm'
 import { AuthController } from './modules/auth/auth.controller'
 import { AuthModule } from './modules/auth/auth.module'
 import { UserModule } from './modules/user/user.module'
+import { AppController } from './app.controller'
+import { AppService } from './app.service'
 
 const databaseFactory = (configService: ConfigService) => {
   return {
@@ -21,6 +23,7 @@ const databaseFactory = (configService: ConfigService) => {
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    AppModule,
     AuthModule,
     UserModule,
     TypeOrmModule.forRootAsync({
