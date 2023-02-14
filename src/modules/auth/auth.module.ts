@@ -15,7 +15,9 @@ import { ConfigService } from '@nestjs/config'
 const jwtModuleOptions: JwtModuleAsyncOptions = {
   imports: [CommonModule],
   useFactory: async (configService: ConfigService) => {
-    const expirationSeconds = Number(configService.get('JWT_EXPIRATION_SECONDS'))
+    const expirationSeconds = Number(
+      configService.get('JWT_EXPIRATION_SECONDS'),
+    )
     const secret = configService.get('JWT_SECRET_KEY')
     return {
       secret: secret,
@@ -27,12 +29,14 @@ const jwtModuleOptions: JwtModuleAsyncOptions = {
   inject: [ConfigService],
 }
 
-const defaultPassportStrategy = () => PassportModule.register({ defaultStrategy: 'jwt' })
+const defaultPassportStrategy = () =>
+  PassportModule.register({ defaultStrategy: 'jwt' })
 
-const requestContextModule = () => RequestContextModule.forRoot({
-  contextClass: UserContext,
-  isGlobal: true,
-})
+const requestContextModule = () =>
+  RequestContextModule.forRoot({
+    contextClass: UserContext,
+    isGlobal: true,
+  })
 
 @Module({
   imports: [
@@ -44,11 +48,6 @@ const requestContextModule = () => RequestContextModule.forRoot({
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy, UserContextService],
-  exports: [
-    defaultPassportStrategy(),
-    AuthService,
-    UserContextService,
-  ],
+  exports: [defaultPassportStrategy(), AuthService, UserContextService],
 })
-export class AuthModule {
-}
+export class AuthModule {}

@@ -13,8 +13,7 @@ export class AuthController {
   constructor(
     private readonly userService: UserService,
     private readonly authService: AuthService,
-  ) {
-  }
+  ) {}
 
   @ApiOperation({ summary: 'Register new user' })
   @ApiResponse({ status: 201, description: 'Successful Registration' })

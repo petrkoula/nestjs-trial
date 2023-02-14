@@ -12,8 +12,7 @@ export class TeamService {
     @InjectRepository(Team)
     private readonly teamRepository: Repository<Team>,
     private readonly userContextService: UserContextService,
-  ) {
-  }
+  ) {}
 
   async createOrIncrementByName(teamName: string): Promise<void> {
     const userId = this.userContextService.getContext().user.id
@@ -22,12 +21,16 @@ export class TeamService {
     if (team) {
       await this.teamRepository.increment({ name: teamName }, 'vote_count', 1)
     } else {
-      await this.teamRepository.save({ name: teamName, vote_count: 1, user_id: userId })
+      await this.teamRepository.save({
+        name: teamName,
+        vote_count: 1,
+        user_id: userId,
+      })
     }
   }
 
   async findOneByName(teamName: string): Promise<TeamDto | undefined> {
-    let team = await this.teamRepository.findOneBy({ name: teamName })
+    const team = await this.teamRepository.findOneBy({ name: teamName })
     return !team ? undefined : mapTeamToDto(team)
   }
 }

@@ -14,22 +14,16 @@ export class TeamDto {
 @ApiBearerAuth()
 @Controller('teams')
 export class TeamController {
-  constructor(private readonly teamService: TeamService) {
-  }
-
+  constructor(private readonly teamService: TeamService) {}
 
   @Get('/:name')
-  async getTest(
-    @Param('name') name: string,
-  ): Promise<TeamDto | undefined> {
+  async getTest(@Param('name') name: string): Promise<TeamDto | undefined> {
     return this.teamService.findOneByName(name)
   }
 
   @Put('/:name/vote')
   @UseGuards(AuthGuard())
-  async vote(
-    @Param('name') name: string,
-  ): Promise<{}> {
+  async vote(@Param('name') name: string): Promise<{}> {
     await this.teamService.createOrIncrementByName(name)
     return {}
   }

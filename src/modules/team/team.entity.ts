@@ -2,7 +2,11 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  CreateDateColumn, ManyToOne, Index, JoinColumn, Unique,
+  CreateDateColumn,
+  ManyToOne,
+  Index,
+  JoinColumn,
+  Unique,
 } from 'typeorm'
 import { User } from '../user/user.entity'
 

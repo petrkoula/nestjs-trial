@@ -30,10 +30,9 @@ export const databaseFactory = (configService: ConfigService) => {
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: databaseFactory,
-    })
+    }),
   ],
   controllers: [AuthController, TeamController],
   providers: [],
 })
-export class AppModule {
-}
+export class AppModule {}

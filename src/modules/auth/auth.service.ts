@@ -5,8 +5,8 @@ import { JwtService } from '@nestjs/jwt'
 import { ConfigService } from '@nestjs/config'
 
 interface JwtToken {
-  expiresIn: number,
-  accessToken: string,
+  expiresIn: number
+  accessToken: string
 }
 
 @Injectable()
@@ -16,10 +16,12 @@ export class AuthService {
     private readonly hashService: HashService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
-  ) {
-  }
+  ) {}
 
-  async authenticate(email: string, password: string): Promise<JwtToken | null> {
+  async authenticate(
+    email: string,
+    password: string,
+  ): Promise<JwtToken | null> {
     const user = await this.userService.findOneByEmail(email)
     if (!user) {
       return null

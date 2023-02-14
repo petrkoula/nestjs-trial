@@ -2,8 +2,7 @@ import { DataSource } from 'typeorm'
 import { datasource } from '../../../ormconfig'
 
 export class IntegrationTestService {
-  constructor(private readonly datasource: DataSource) {
-  }
+  constructor(private readonly datasource: DataSource) {}
 
   public async truncateTables(): Promise<void> {
     try {
@@ -16,7 +15,9 @@ export class IntegrationTestService {
         return
       }
 
-      const tableNames = entities.map((entity) => `"${entity.tableName}"`).join(', ')
+      const tableNames = entities
+        .map((entity) => `"${entity.tableName}"`)
+        .join(', ')
 
       await this.datasource.query(`truncate ${tableNames} cascade;`)
     } catch (error) {

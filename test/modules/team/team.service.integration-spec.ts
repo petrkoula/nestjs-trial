@@ -24,7 +24,9 @@ describe(TeamService, () => {
     dbService = new IntegrationTestService(datasource)
     const testUser = await dbService.createTestUser()
 
-    const userContextService = { getContext: () => ({ user: { id: testUser.id, email: '', name: '' } }) }
+    const userContextService = {
+      getContext: () => ({ user: { id: testUser.id, email: '', name: '' } }),
+    }
     module = await Test.createTestingModule({
       imports: [TeamModule, orm],
     })

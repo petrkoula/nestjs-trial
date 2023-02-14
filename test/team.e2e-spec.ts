@@ -61,14 +61,13 @@ describe('e2e team tests', () => {
     const res = await getTeam(token, 'new_team')
 
     expect(res.statusCode).toEqual(200)
-    expect(res.body).toEqual(expect.objectContaining({
+    expect(res.body).toEqual(
+      expect.objectContaining({
         name: 'newteam',
         voteCount: 1,
       }),
     )
   })
-
-
 
   it('should return team with actual votes when voting for existing team', async () => {
     await register('voter@user.com', 'password')
@@ -89,7 +88,8 @@ describe('e2e team tests', () => {
     const res = await getTeam(token, 'existing_team')
     expect(res.statusCode).toEqual(200)
 
-    expect(res.body).toEqual(expect.objectContaining({
+    expect(res.body).toEqual(
+      expect.objectContaining({
         name: 'existing_team',
         voteCount: 3,
       }),

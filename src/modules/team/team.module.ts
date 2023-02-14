@@ -8,14 +8,9 @@ import { AuthModule } from '../auth/auth.module'
 import { TeamController } from './team.controller'
 
 @Module({
-  imports: [
-    CommonModule,
-    TypeOrmModule.forFeature([Team]),
-    AuthModule,
-  ],
+  imports: [CommonModule, TypeOrmModule.forFeature([Team]), AuthModule],
   controllers: [TeamController],
   providers: [TeamService, Repository<Team>],
   exports: [TeamService, Repository<Team>],
 })
-export class TeamModule {
-}
+export class TeamModule {}

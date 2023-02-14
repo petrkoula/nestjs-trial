@@ -10,10 +10,6 @@ const configService = {
 @Global()
 @Module({
   exports: [ConfigService, HashService],
-  providers: [
-    HashService,
-    configService,
-  ],
+  providers: [HashService, configService],
 })
-export class CommonModule {
-}
+export class CommonModule {}

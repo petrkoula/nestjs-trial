@@ -1,4 +1,4 @@
 export interface JwtToken {
-  expiresIn: number,
-  accessToken: string,
+  expiresIn: number
+  accessToken: string
 }

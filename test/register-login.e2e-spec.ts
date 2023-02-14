@@ -45,7 +45,9 @@ describe('e2e tests', () => {
     const loginResponse = await login('test@user.com', 'password')
     expect(loginResponse.statusCode).toEqual(201)
     expect(loginResponse.body).toEqual({
-      accessToken: expect.stringContaining('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'),
+      accessToken: expect.stringContaining(
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+      ),
       expiresIn: 3600,
     })
   })
