@@ -1,10 +1,10 @@
 import { Global, Module } from '@nestjs/common'
 import { HashService } from './security/hash.service'
-import { ConfigService } from './config/config.service'
+import { ConfigService } from '@nestjs/config'
 
 const configService = {
   provide: ConfigService,
-  useValue: new ConfigService('.env'),
+  useValue: new ConfigService(),
 }
 
 @Global()

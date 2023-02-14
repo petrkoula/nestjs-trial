@@ -3,7 +3,6 @@ import { AuthController } from './auth.controller'
 import { UserModule } from '../user/user.module'
 import { CommonModule } from '../common/common.module'
 import { AuthService } from './auth.service'
-import { ConfigService } from '../common/config/config.service'
 import { JwtModule } from '@nestjs/jwt'
 import { JwtModuleAsyncOptions } from '@nestjs/jwt/dist/interfaces/jwt-module-options.interface'
 import { JwtStrategy } from './passport/jwt.strategy'
@@ -11,6 +10,7 @@ import { PassportModule } from '@nestjs/passport'
 import { RequestContextModule } from '@medibloc/nestjs-request-context'
 import { UserContext } from './user-context/user-context'
 import { UserContextService } from './user-context/user-context.service'
+import { ConfigService } from '@nestjs/config'
 
 const jwtModuleOptions: JwtModuleAsyncOptions = {
   imports: [CommonModule],

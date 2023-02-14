@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { HashService } from '../common/security/hash.service'
 import { UserService } from '../user/user.service'
 import { JwtService } from '@nestjs/jwt'
-import { ConfigService } from '../common/config/config.service'
+import { ConfigService } from '@nestjs/config'
 
 interface JwtToken {
   expiresIn: number,
