@@ -1,33 +1,19 @@
 ## Installation
 
 ```bash
-$ npm install
-```
-
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+$ yarn install
 ```
 
 ## Test
 
 ```bash
-# unit tests
-$ npm run test
+# run & migrate DB
+$ yarn run db:run
+$ yarn run mig:run
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# run tests
+$ yarn test:integration
+$ yarn test:e2e
 ```
 
 ## Support
