@@ -33,4 +33,12 @@ export class TeamService {
     const team = await this.teamRepository.findOneBy({ name: teamName })
     return !team ? undefined : mapTeamToDto(team)
   }
+
+  async getLeaders(top: number): Promise<TeamDto[]> {
+    const teams = await this.teamRepository.find({
+      order: { vote_count: 'desc' },
+      take: top,
+    })
+    return teams.map(mapTeamToDto)
+  }
 }
