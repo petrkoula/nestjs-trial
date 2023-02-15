@@ -1,9 +1,9 @@
 import { Test } from '@nestjs/testing'
 import { INestApplication } from '@nestjs/common'
 import * as request from 'supertest'
-import { AppModule } from '../src/app.module'
-import { IntegrationTestService } from './support/integration-test.service'
-import { datasource } from '../ormconfig'
+import { AppModule } from '../../src/app.module'
+import { IntegrationTestService } from '../support/integration-test.service'
+import { datasource } from '../../ormconfig'
 
 describe('e2e tests', () => {
   let app: INestApplication

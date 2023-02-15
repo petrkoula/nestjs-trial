@@ -1,10 +1,10 @@
 import { Test } from '@nestjs/testing'
 import { INestApplication } from '@nestjs/common'
 import * as request from 'supertest'
-import { IntegrationTestService } from './support/integration-test.service'
-import { datasource } from '../ormconfig'
-import { AppModule } from '../src/app.module'
-import { login, register, requestAs } from './support/requests'
+import { IntegrationTestService } from '../support/integration-test.service'
+import { datasource } from '../../ormconfig'
+import { AppModule } from '../../src/app.module'
+import { login, register, requestAs } from '../support/requests'
 
 describe('e2e team tests', () => {
   let app: INestApplication
