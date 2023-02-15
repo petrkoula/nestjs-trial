@@ -1,7 +1,8 @@
-import { Controller, Get, Param, Put, Query, UseGuards } from '@nestjs/common'
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common'
+import { ApiBearerAuth, ApiProperty, ApiTags } from '@nestjs/swagger'
 import { AuthGuard } from '@nestjs/passport'
 import { TeamService } from './team.service'
+import { IsNotEmpty } from 'class-validator'
 
 export class TeamDto {
   id: number
@@ -10,21 +11,29 @@ export class TeamDto {
   createdAt: Date
 }
 
+class TeamVotePayload {
+  @ApiProperty({ required: true })
+  @IsNotEmpty()
+  name: string
+}
+
 @ApiTags('teams')
 @ApiBearerAuth()
 @Controller('teams')
 export class TeamController {
-  constructor(private readonly teamService: TeamService) {}
+  constructor(private readonly teamService: TeamService) {
+  }
 
   @Get('/:name')
   async getTest(@Param('name') name: string): Promise<TeamDto | undefined> {
     return this.teamService.findOneByName(name)
   }
 
-  @Put('/:name/vote')
+
+  @Post('/vote')
   @UseGuards(AuthGuard())
-  async vote(@Param('name') name: string): Promise<{}> {
-    await this.teamService.createOrIncrementByName(name)
+  async vote(@Body() payload: TeamVotePayload): Promise<{}> {
+    await this.teamService.createOrIncrementByName(payload.name)
     return {}
   }
 }

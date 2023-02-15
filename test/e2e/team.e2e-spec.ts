@@ -42,11 +42,11 @@ describe('e2e team tests', () => {
 
     const token = loginResponse.body.accessToken
     const resVote = await request(app.getHttpServer())
-      .put('/teams/newteam/vote')
+      .post('/teams/vote')
       .set({ Authorization: `Bearer ${token}` })
-      .send()
+      .send({name: 'newteam'})
 
-    expect(resVote.statusCode).toEqual(200)
+    expect(resVote.statusCode).toEqual(201)
 
     const res = await getTeam(token, 'newteam')
 
@@ -66,9 +66,9 @@ describe('e2e team tests', () => {
 
     const vote = async () => {
       await request(app.getHttpServer())
-        .put('/teams/existing_team/vote')
+        .post('/teams/vote')
         .set({ Authorization: `Bearer ${token}` })
-        .send()
+        .send({name: 'existing_team'})
     }
 
     await vote()
@@ -95,11 +95,11 @@ describe('e2e team tests', () => {
 
     const voteForWinners = () =>
       requestAs(app)(user1, pass, (req) =>
-        req.put('/teams/winners/vote').send(),
+        req.post('/teams/vote').send({name: 'winners'}),
       )
     const voteForLoosers = () =>
       requestAs(app)(user2, pass, (req) =>
-        req.put('/teams/loosers/vote').send(),
+        req.post('/teams/vote').send({name: 'loosers'}),
       )
 
     await voteForWinners()
